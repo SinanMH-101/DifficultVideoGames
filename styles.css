@@ -341,3 +341,90 @@ body {
 #section5 {
     background: #000000;
 }
+
+
+/* ---- Panel content container ---- */
+.content {
+    width: min(1100px, 86vw);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 2.6vw, 2.25rem) clamp(1.25rem, 2.8vw, 2.5rem);
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.85), rgba(10, 10, 10, 0.85));
+    border: 1px solid rgba(225, 29, 46, 0.18);
+    border-radius: 16px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(2px);
+    text-align: left;
+}
+
+/* Headings styled like a Souls title, but readable */
+.content .title {
+    margin: 0 0 0.6rem 0;
+    font-family: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+    color: #ffe6e8;
+    text-shadow:
+        0 0 8px rgba(225, 29, 46, 0.20),
+        0 0 22px rgba(225, 29, 46, 0.12);
+    border-left: 4px solid #e11d2e;
+    padding-left: 0.75rem;
+}
+
+/* Body copy */
+.content p {
+    margin: 0.6rem 0 0 0;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: clamp(0.98rem, 1.1vw, 1.06rem);
+}
+
+/* Emphasis accents */
+.content strong {
+    color: #ffd1d6;
+}
+
+.content em {
+    color: #ffb3ba;
+}
+
+/* Panel background remains dark */
+.panel {
+    background: #000;
+}
+
+/* Give a subtle variation per section if desired */
+#prologue .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#section1 .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#section2 .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#section3 .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#section4 .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#section5 .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+#epilogue .content {
+    border-color: rgba(225, 29, 46, .22);
+}
+
+.tooltip {
+    display: none;
+}
