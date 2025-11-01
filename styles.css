@@ -206,7 +206,7 @@ body {
 }
 
 /* Distinct backgrounds */
-#section1 {
+#section1, #prologue, #epilogue {
     background: #000000;
 }
 
