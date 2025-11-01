@@ -336,6 +336,7 @@ body {
     gap: 200px;
     margin: 0;
     padding: 100px 0 14px;
+    
     text-align: center;
     z-index: 1;
     background: transparent;
@@ -344,7 +345,7 @@ body {
     font-weight: 700;
     letter-spacing: .06em;
     text-transform: none;
-    font-size:2rem;
+    font-size: 2rem;
     color: #ffe6e8;
     text-shadow:
         0 0 8px rgba(225, 29, 46, 0.20),
@@ -439,4 +440,136 @@ body {
 /* Tooltips hidden unless you reveal them elsewhere */
 .tooltip {
     display: none;
+}
+
+
+
+/* === Panel reveal animations === */
+:root {
+    --enter-gap: 120ms;
+    /* delay between steps */
+    --enter-gap-small: 80ms;
+    /* paragraph stagger */
+}
+
+/* start hidden by default */
+.title .animKey,
+.title .title-rest,
+.content .content-text>* {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+/* When a panel is flagged "enter", play the sequence */
+.panel.enter .title .animKey {
+    animation: souls-pop-mini 700ms cubic-bezier(.2, .9, .2, 1) both;
+    text-shadow:
+        0 0 8px rgba(225, 29, 46, 0.7),
+        0 0 24px rgba(225, 29, 46, 0.35),
+        0 0 48px rgba(225, 29, 46, 0.2);
+    color: #e11d2e;
+    /* glowing red while popping */
+}
+
+/* Fade the red back to the normal title color after pop */
+.panel.enter .title .animKey {
+    animation-name: souls-pop-mini, key-tint-back;
+    animation-duration: 700ms, 700ms;
+    animation-delay: 0ms, 600ms;
+    /* start tint-back near the end */
+    animation-fill-mode: both, forwards;
+    animation-timing-function: cubic-bezier(.2, .9, .2, 1), ease;
+}
+
+.panel.enter .title .title-rest {
+    animation: title-reveal 520ms ease forwards;
+    animation-delay: calc(0ms + var(--enter-gap));
+    /* after animKey */
+}
+
+.panel.enter .content .content-text>* {
+    animation: body-reveal 1000ms ease forwards;
+}
+
+/* Stagger each paragraph/element */
+.panel.enter .content .content-text>*:nth-child(1) {
+    animation-delay: calc(0ms + var(--enter-gap) * 2);
+}
+
+.panel.enter .content .content-text>*:nth-child(2) {
+    animation-delay: calc(0ms + var(--enter-gap) * 2 + var(--enter-gap-small)*1);
+}
+
+.panel.enter .content .content-text>*:nth-child(3) {
+    animation-delay: calc(0ms + var(--enter-gap) * 2 + var(--enter-gap-small)*2);
+}
+
+.panel.enter .content .content-text>*:nth-child(4) {
+    animation-delay: calc(0ms + var(--enter-gap) * 2 + var(--enter-gap-small)*3);
+}
+
+.panel.enter .content .content-text>*:nth-child(5) {
+    animation-delay: calc(0ms + var(--enter-gap) * 2 + var(--enter-gap-small)*4);
+}
+
+/* Keyframes (smaller version of your intro pop) */
+@keyframes souls-pop-mini {
+    0% {
+        transform: translateY(6px) scale(0.96);
+        filter: blur(1px);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateY(0) scale(1.02);
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0) scale(1.00);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+@keyframes key-tint-back {
+    0% {
+        color: #e11d2e;
+        text-shadow:
+            0 0 8px rgba(225, 29, 46, 0.7),
+            0 0 24px rgba(225, 29, 46, 0.35),
+            0 0 48px rgba(225, 29, 46, 0.2);
+    }
+
+    100% {
+        color: #e11d2e;
+        text-shadow:
+            0 0 8px rgba(225, 29, 46, 0.20),
+            0 0 22px rgba(225, 29, 46, 0.12);
+    }
+}
+
+@keyframes title-reveal {
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes body-reveal {
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
