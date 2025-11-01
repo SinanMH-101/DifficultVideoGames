@@ -1,74 +1,178 @@
+/* ===== Left navigation rail ===== */
+#nav-rail {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 90vh;
+    z-index: 100;
+    /* below intro overlay (9999), above content */
+    pointer-events: none;
+    /* let inner buttons accept clicks */
+}
+
+#nav-rail .rail {
+    position: relative;
+    width: 10px;
+    height: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+    /* white bar */
+    border-radius: 999px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .08) inset;
+}
+
+#nav-rail .rail-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* ← was bottom: 0 */
+    /* bottom: 0;  REMOVE this line if present */
+    width: 100%;
+    height: 0%;
+    /* JS updates this */
+    background: #e11d2e;
+    border-radius: 999px;
+    transition: height 300ms ease;
+    pointer-events: none;
+    /* don't block notch clicks */
+}
+
+
+/* Notches */
+#nav-rail .notch {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    border-radius: 999px;
+    border: 2px solid #ffffff;
+    /* white rings */
+    background: #ffffff;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto;
+    /* clickable */
+    outline: none;
+    transition: transform 120ms ease, background 200ms ease, border-color 200ms ease;
+}
+
+#nav-rail .notch:hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    border-color: #ffe2e5;
+}
+
+/* Active notch filled red */
+#nav-rail .notch.active {
+    background: #e11d2e;
+    border-color: #e11d2e;
+}
+
+/* Past (<= current) notches stay red */
+#nav-rail .notch.past {
+  background: #e11d2e;
+  border-color: #e11d2e;
+}
+
+
+/* ===== Left navigation rail ===== */
+
 #intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  /* deep black with subtle red bloom */
-  background:
-    radial-gradient(1200px 600px at 50% 60%, rgba(190, 0, 0, 0.15), rgba(0,0,0,0) 60%),
-    linear-gradient(180deg, #0a0000 0%, #000 100%);
-  display: grid;
-  place-items: center;
-  opacity: 0;
-  transform: scale(1.02);
-  transition: opacity 400ms ease, transform 600ms cubic-bezier(.2,.8,.2,1);
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    /* deep black with subtle red bloom */
+    background:
+        radial-gradient(1200px 600px at 50% 60%, rgba(190, 0, 0, 0.15), rgba(0, 0, 0, 0) 60%),
+        linear-gradient(180deg, #0a0000 0%, #000 100%);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 400ms ease, transform 600ms cubic-bezier(.2, .8, .2, 1);
 }
 
 #intro-overlay.in {
-  opacity: 1;
-  transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
 }
 
 #intro-overlay.out {
-  opacity: 0;
-  transform: scale(0.985);
+    opacity: 0;
+    transform: scale(0.985);
 }
 
 #intro-overlay .intro-inner {
-  text-align: center;
-  user-select: none;
-  pointer-events: none; /* allows click anywhere to dismiss */
+    text-align: center;
+    user-select: none;
+    pointer-events: none;
+    /* allows click anywhere to dismiss */
 }
 
 #intro-overlay .intro-title {
-  margin: 0;
-  /* Souls-like typography cues: wide tracking, tall serif fallback */
-  font-family: "Cinzel", "Trajan Pro", "Times New Roman", serif;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: clamp(2rem, 6vw, 6rem);
-  /* dramatic red with glow */
-  color: #e11d2e;
-  text-shadow:
-    0 0 8px rgba(225, 29, 46, 0.7),
-    0 0 24px rgba(225, 29, 46, 0.35),
-    0 0 48px rgba(225, 29, 46, 0.2);
-  animation: souls-pop 700ms cubic-bezier(.2,.9,.2,1) both;
+    margin: 0;
+    /* Souls-like typography cues: wide tracking, tall serif fallback */
+    font-family: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: clamp(2rem, 6vw, 6rem);
+    /* dramatic red with glow */
+    color: #e11d2e;
+    text-shadow:
+        0 0 8px rgba(225, 29, 46, 0.7),
+        0 0 24px rgba(225, 29, 46, 0.35),
+        0 0 48px rgba(225, 29, 46, 0.2);
+    animation: souls-pop 700ms cubic-bezier(.2, .9, .2, 1) both;
 }
 
 #intro-overlay .intro-sub {
-  margin-top: 1rem;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: clamp(.7rem, 1.4vw, 1rem);
-  opacity: 0;
-  animation: hint-fade 1.2s ease 650ms forwards;
+    margin-top: 1rem;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: clamp(.7rem, 1.4vw, 1rem);
+    opacity: 0;
+    animation: hint-fade 1.2s ease 650ms forwards;
 }
 
 /* Title pop-in (slight overshoot) */
 @keyframes souls-pop {
-  0%   { transform: scale(0.96); filter: blur(2px); opacity: 0; }
-  60%  { transform: scale(1.02); filter: blur(0);   opacity: 1; }
-  100% { transform: scale(1.0);  filter: blur(0);   opacity: 1; }
+    0% {
+        transform: scale(0.96);
+        filter: blur(2px);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.02);
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.0);
+        filter: blur(0);
+        opacity: 1;
+    }
 }
 
 /* Subtext fade */
 @keyframes hint-fade {
-  0%   { opacity: 0; transform: translateY(6px); }
-  100% { opacity: 1; transform: translateY(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 
 
 
@@ -77,32 +181,47 @@
 
 
 /* Full-viewport panels; only one visible naturally */
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 /* We’ll block native free-scrolling via preventDefault on wheel; allow programmatic scroll */
 body {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .panel {
-  height: 100vh;
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 2rem;
-  box-sizing: border-box;
-  color: #fff;
-  font-size: clamp(1.5rem, 3vw, 3rem);
+    height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 3rem);
 }
 
 /* Distinct backgrounds */
-#section1 { background: #0ea5e9; }
-#section2 { background: #22c55e; }
-#section3 { background: #a855f7; }
-#section4 { background: #f97316; }
-#section5 { background: #ef4444; }
+#section1 {
+    background: #000000;
+}
+
+#section2 {
+    background: #000000;
+}
+
+#section3 {
+    background: #000000;
+}
+
+#section4 {
+    background: #000000;
+}
+
+#section5 {
+    background: #000000;
+}
