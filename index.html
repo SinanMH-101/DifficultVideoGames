@@ -32,23 +32,23 @@
                </div>
                <div class="nav-item" style="top:16.66%" data-i="1">
                     <button class="notch" aria-label="Go to Section 1"></button>
-                    <span class="label">Section 1</span>
+                    <span class="label">Act 1</span>
                </div>
                <div class="nav-item" style="top:33.33%" data-i="2">
                     <button class="notch" aria-label="Go to Section 2"></button>
-                    <span class="label">Section 2</span>
+                    <span class="label">Act 2</span>
                </div>
                <div class="nav-item" style="top:50%" data-i="3">
                     <button class="notch" aria-label="Go to Section 3"></button>
-                    <span class="label">Section 3</span>
+                    <span class="label">Act 3</span>
                </div>
                <div class="nav-item" style="top:66.66%" data-i="4">
                     <button class="notch" aria-label="Go to Section 4"></button>
-                    <span class="label">Section 4</span>
+                    <span class="label">Act 4</span>
                </div>
                <div class="nav-item" style="top:83.33%" data-i="5">
                     <button class="notch" aria-label="Go to Section 5"></button>
-                    <span class="label">Section 5</span>
+                    <span class="label">Act 5</span>
                </div>
                <div class="nav-item" style="top:100%" data-i="6">
                     <button class="notch" aria-label="Go to Epilogue"></button>
@@ -59,27 +59,27 @@
 
      <!-- Sections -->
      <section id="prologue" class="panel">
-          <h2>Prologue</h2>
+          <h2 class="title">Prologue</h2>
      </section>
 
      <section id="section1" class="panel">
-          <h2>This is Section 1</h2>
+          <h2 class="title">This is Section 1</h2>
      </section>
      <section id="section2" class="panel">
-          <h2>This is Section 2</h2>
+          <h2 class="title">This is Section 2</h2>
      </section>
      <section id="section3" class="panel">
-          <h2>This is Section 3</h2>
+          <h2 class="title">This is Section 3</h2>
      </section>
      <section id="section4" class="panel">
-          <h2>This is Section 4</h2>
+          <h2 class="title">This is Section 4</h2>
      </section>
      <section id="section5" class="panel">
-          <h2>This is Section 5</h2>
+          <h2 class="title">This is Section 5</h2>
      </section>
 
      <section id="epilogue" class="panel">
-          <h2>Epilogue</h2>
+          <h2 class="title">Epilogue</h2>
      </section>
 
      <script>
@@ -103,12 +103,9 @@
                const $win = $(window);
                const $root = $("html, body");
                const $sections = $(".panel");
-
-               // nav rail elements
                const $items = $("#nav-rail .nav-item");
                const $notches = $items.find(".notch");
                const $fill = $("#nav-rail .rail-fill");
-
                let tops = [];
                let index = 0;
                let animating = false;
@@ -167,6 +164,28 @@
                $root.scrollTop(tops[0]);
                setProgress(0);
 
+               // When hovering a label (or the whole item), show that section's title in the hint
+               $("#nav-rail").on("mouseenter", ".nav-item, .nav-item .label", function () {
+                    const $item = $(this).closest(".nav-item");
+                    const i = Number($item.data("i"));
+                    const $sec = $sections.eq(i);
+                    const text = $sec.find(".title").first().text().trim();
+
+                    const $hint = $item.find(".hint");
+                    $hint.text(text || "").addClass("show");
+               });
+
+               $("#nav-rail").on("mouseleave", ".nav-item, .nav-item .label", function () {
+                    $(this).closest(".nav-item").find(".hint").removeClass("show");
+               });
+
+               $items.each(function () {
+                    if (!$(this).find(".hint").length) {
+                         $(this).append('<div class="hint" aria-hidden="true"></div>');
+                    }
+               });
+
+
 
                // Notch + label clicks (delegate)
                $("#nav-rail").on("click", ".nav-item, .nav-item .notch, .nav-item .label", function (e) {
@@ -204,24 +223,7 @@
                     }
                });
 
-               // Touch (swipe)
-               let touchStartY = null;
-               window.addEventListener("touchstart", (e) => {
-                    if (animating) return;
-                    touchStartY = e.touches[0].clientY;
-               }, { passive: true });
-
-               window.addEventListener("touchend", (e) => {
-                    if (animating || touchStartY == null) return;
-                    const endY = e.changedTouches[0].clientY;
-                    const diff = touchStartY - endY;
-                    const threshold = 40;
-                    if (Math.abs(diff) > threshold) {
-                         scrollToIndex(index + (diff > 0 ? 1 : -1));
-                    }
-                    touchStartY = null;
-               }, { passive: true });
-
+              
                // Sync index/progress if user jumps or after resize
                let scrollDebounce;
                $(window).on("scroll", function () {
@@ -247,6 +249,8 @@
                     }, 100);
                });
           });
+
+
      </script>
 </body>
 

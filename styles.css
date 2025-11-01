@@ -74,6 +74,7 @@
     border-color: #ffe2e5;
 }
 
+
 /* Active notch filled red */
 #nav-rail .notch.active {
     background: #e11d2e;
@@ -91,20 +92,25 @@
     left: 36px;
     top: 0;
     transform: translateY(-50%);
+    transform-origin: left center;
     white-space: nowrap;
     font: 500 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     color: rgba(255, 255, 255, 0.9);
-    /* <-- fixed color */
+    background: transparent;
+    padding: 4px 8px;
+    border-radius: 999px;
     user-select: none;
     pointer-events: auto;
-    transition: opacity 180ms ease;
-    /* no color transition */
-    opacity: 0.9;
-    background: transparent;
+    transition:
+        transform 150ms ease,
+        background 150ms ease,
+        box-shadow 150ms ease,
+        opacity 150ms ease;
+    opacity: 0.95;
 }
 
 #nav-rail .nav-item.past .notch,
-#nav-rail .nav-item.past  {
+#nav-rail .nav-item.past {
     background: #e11d2e;
     border-color: #e11d2e;
     color: #e11d2e;
@@ -122,9 +128,68 @@
 
 #nav-rail .nav-item.past .label,
 #nav-rail .nav-item.active .label {
-  color: rgba(255,255,255,0.9);   /* lock it */
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: transparent !important;
+    text-shadow: none !important;
 }
+
+#nav-rail .label:hover,
+#nav-rail .nav-item:hover .label {
+    background: rgba(163, 45, 54, 0.925);
+    box-shadow: 0 0 0 2px rgba(225, 17, 34, 0.35);
+    transform: translateY(-50%) scale(1.18);
+    /* smooth “bigger” look */
+    cursor: pointer;
+    opacity: 1;
+}
+
+
+#nav-rail .hint {
+    position: absolute;
+    left: 32px;
+    /* align with label left */
+    top: 22px;
+    /* below the label */
+    transform: translateY(-6px);
+    max-width: 260px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font: 400 14px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease, transform 140ms ease;
+    white-space: nowrap;
+    /* no wrapping */
+    overflow: hidden;
+    /* clip overflow */
+    text-overflow: ellipsis;
+
+}
+
+#nav-rail .hint.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+#nav-rail .label {
+    z-index: 1;
+}
+
+/* ensure label sits above the fill */
+
 /* ===== Left navigation rail ===== */
+
+
+
+
+
+
+
+
 
 #intro-overlay {
     position: fixed;
@@ -172,7 +237,7 @@
         0 0 8px rgba(225, 29, 46, 0.7),
         0 0 24px rgba(225, 29, 46, 0.35),
         0 0 48px rgba(225, 29, 46, 0.2);
-    animation: souls-pop 700ms cubic-bezier(.2, .9, .2, 1) both;
+    animation: souls-pop 1500ms cubic-bezier(.2, .9, .2, 1) both;
 }
 
 #intro-overlay .intro-sub {
@@ -227,6 +292,7 @@
 
 
 
+
 /* Full-viewport panels; only one visible naturally */
 html,
 body {
@@ -256,7 +322,8 @@ body {
 #section1,
 #prologue,
 #epilogue {
-    background: #000000;
+    background:
+        #000000;
 }
 
 #section2 {
