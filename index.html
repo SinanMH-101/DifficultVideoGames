@@ -1,212 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="stylesheet" href="styles.css"/>
-  <title>Difficult Videogames</title>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+     <link rel="stylesheet" href="styles.css" />
+     <title>Difficult Videogames</title>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
-  <!-- 🔴 “You Died” style intro overlay -->
-  <div id="intro-overlay" role="dialog" aria-modal="true" aria-label="Page title">
-    <div class="intro-inner">
-      <h1 class="intro-title">Difficult Videogames</h1>
-      <p class="intro-sub">click anywhere to continue</p>
-    </div>
-  </div>
+     <!-- 🔴 “You Died” style intro overlay -->
+     <div id="intro-overlay" role="dialog" aria-modal="true" aria-label="Page title">
+          <div class="intro-inner">
+               <h1 class="intro-title">Difficult Videogames</h1>
+               <p class="intro-sub">click anywhere to continue</p>
+          </div>
+     </div>
 
-  <!-- 📍 Left progress/navigation rail (7 notches now) -->
-  <nav id="nav-rail" aria-label="Page progress">
-    <div class="rail">
-      <div class="rail-fill" aria-hidden="true"></div>
+     <!-- 📍 Left progress/navigation rail (7 notches now) -->
+     <nav id="nav-rail" aria-label="Page progress">
+          <div class="rail">
+               <div class="rail-fill" aria-hidden="true"></div>
 
-      <!-- 7 evenly spaced notches (prologue..epilogue) -->
-      <button class="notch" style="top:0%"        data-i="0" aria-label="Go to Prologue"></button>
-      <button class="notch" style="top:16.66%"    data-i="1" aria-label="Go to Section 1"></button>
-      <button class="notch" style="top:33.33%"    data-i="2" aria-label="Go to Section 2"></button>
-      <button class="notch" style="top:50%"       data-i="3" aria-label="Go to Section 3"></button>
-      <button class="notch" style="top:66.66%"    data-i="4" aria-label="Go to Section 4"></button>
-      <button class="notch" style="top:83.33%"    data-i="5" aria-label="Go to Section 5"></button>
-      <button class="notch" style="top:100%"      data-i="6" aria-label="Go to Epilogue"></button>
-    </div>
-  </nav>
+               <!-- 7 evenly spaced notches (prologue..epilogue) -->
+               <div class="nav-item" style="top:0%" data-i="0">
+                    <button class="notch" aria-label="Go to Prologue"></button>
+                    <span class="label">Prologue</span>
+               </div>
+               <div class="nav-item" style="top:16.66%" data-i="1">
+                    <button class="notch" aria-label="Go to Section 1"></button>
+                    <span class="label">Section 1</span>
+               </div>
+               <div class="nav-item" style="top:33.33%" data-i="2">
+                    <button class="notch" aria-label="Go to Section 2"></button>
+                    <span class="label">Section 2</span>
+               </div>
+               <div class="nav-item" style="top:50%" data-i="3">
+                    <button class="notch" aria-label="Go to Section 3"></button>
+                    <span class="label">Section 3</span>
+               </div>
+               <div class="nav-item" style="top:66.66%" data-i="4">
+                    <button class="notch" aria-label="Go to Section 4"></button>
+                    <span class="label">Section 4</span>
+               </div>
+               <div class="nav-item" style="top:83.33%" data-i="5">
+                    <button class="notch" aria-label="Go to Section 5"></button>
+                    <span class="label">Section 5</span>
+               </div>
+               <div class="nav-item" style="top:100%" data-i="6">
+                    <button class="notch" aria-label="Go to Epilogue"></button>
+                    <span class="label">Epilogue</span>
+               </div>
+          </div>
+     </nav>
 
-  <!-- Sections -->
-  <section id="prologue" class="panel"><h2>Prologue</h2></section>
+     <!-- Sections -->
+     <section id="prologue" class="panel">
+          <h2>Prologue</h2>
+     </section>
 
-  <section id="section1" class="panel"><h2>This is Section 1</h2></section>
-  <section id="section2" class="panel"><h2>This is Section 2</h2></section>
-  <section id="section3" class="panel"><h2>This is Section 3</h2></section>
-  <section id="section4" class="panel"><h2>This is Section 4</h2></section>
-  <section id="section5" class="panel"><h2>This is Section 5</h2></section>
+     <section id="section1" class="panel">
+          <h2>This is Section 1</h2>
+     </section>
+     <section id="section2" class="panel">
+          <h2>This is Section 2</h2>
+     </section>
+     <section id="section3" class="panel">
+          <h2>This is Section 3</h2>
+     </section>
+     <section id="section4" class="panel">
+          <h2>This is Section 4</h2>
+     </section>
+     <section id="section5" class="panel">
+          <h2>This is Section 5</h2>
+     </section>
 
-  <section id="epilogue" class="panel"><h2>Epilogue</h2></section>
+     <section id="epilogue" class="panel">
+          <h2>Epilogue</h2>
+     </section>
 
-  <script>
-    /* -------- Intro overlay -------- */
-    $(function () {
-      const $overlay = $("#intro-overlay");
-      requestAnimationFrame(() => $overlay.addClass("in"));
-      function dismissOverlay() {
-        $overlay.addClass("out");
-        setTimeout(() => $overlay.remove(), 500);
-      }
-      $overlay.on("click", dismissOverlay);
-      $(window).on("keydown", (e) => {
-        if (e.key === "Escape" || e.key === "Enter" || e.key === " ") dismissOverlay();
-      });
-    });
+     <script>
 
-    /* -------- Snap + Nav rail -------- */
-    $(function () {
-      const $win = $(window);
-      const $root = $("html, body");
-      const $sections = $(".panel");
+          /* -------- Intro overlay -------- */
+          $(function () {
+               const $overlay = $("#intro-overlay");
+               requestAnimationFrame(() => $overlay.addClass("in"));
+               function dismissOverlay() {
+                    $overlay.addClass("out");
+                    setTimeout(() => $overlay.remove(), 500);
+               }
+               $overlay.on("click", dismissOverlay);
+               $(window).on("keydown", (e) => {
+                    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") dismissOverlay();
+               });
+          });
 
-      // nav rail elements
-      const $notches = $("#nav-rail .notch");
-      const $fill = $("#nav-rail .rail-fill");
+          /* -------- Snap + Nav rail -------- */
+          $(function () {
+               const $win = $(window);
+               const $root = $("html, body");
+               const $sections = $(".panel");
 
-      let tops = [];
-      let index = 0;
-      let animating = false;
-      let wheelCooldown = false;
+               // nav rail elements
+               const $items = $("#nav-rail .nav-item");
+               const $notches = $items.find(".notch");
+               const $fill = $("#nav-rail .rail-fill");
 
-      function measure() {
-        tops = $sections.map(function () {
-          return Math.round($(this).offset().top);
-        }).get();
-      }
+               let tops = [];
+               let index = 0;
+               let animating = false;
+               let wheelCooldown = false;
 
-      function clamp(i) {
-        return Math.max(0, Math.min(i, $sections.length - 1));
-      }
+               function measure() {
+                    tops = $sections.map(function () {
+                         return Math.round($(this).offset().top);
+                    }).get();
+               }
 
-      function setProgress(i) {
-        const p = ($sections.length > 1) ? (i / ($sections.length - 1)) : 0;
-        $fill.css("height", (p * 100) + "%");
+               function clamp(i) {
+                    return Math.max(0, Math.min(i, $sections.length - 1));
+               }
 
-        // cumulative red: all notches with index <= i get .past; current gets .active
-        $notches.each(function (idx) {
-          const $n = $(this);
-          $n.toggleClass("past", idx <= i);
-          $n.toggleClass("active", idx === i);
-        });
-      }
+               function setProgress(i) {
+                    const p = ($sections.length > 1) ? (i / ($sections.length - 1)) : 0;
+                    $fill.css("height", (p * 100) + "%");
 
-      function scrollToIndex(i, duration = 500) {
-        i = clamp(i);
-        animating = true;
-        wheelCooldown = true;
-        $root.stop(true).animate(
-          { scrollTop: tops[i] },
-          duration,
-          "swing",
-          function () {
-            animating = false;
-            index = i;
-            setProgress(index);
-            setTimeout(() => (wheelCooldown = false), 120);
-          }
-        );
-      }
+                    // cumulative red for items (not just notches)
+                    $items.each(function (idx) {
+                         const $it = $(this);
+                         $it.toggleClass("past", idx <= i);
+                         $it.toggleClass("active", idx === i);
+                    });
+               }
 
-      function nearestIndex(scrollTop) {
-        let best = 0, bestDist = Infinity;
-        for (let i = 0; i < tops.length; i++) {
-          const d = Math.abs(tops[i] - scrollTop);
-          if (d < bestDist) { bestDist = d; best = i; }
-        }
-        return best;
-      }
+               function scrollToIndex(i, duration = 500) {
+                    i = clamp(i);
+                    animating = true;
+                    wheelCooldown = true;
+                    $root.stop(true).animate(
+                         { scrollTop: tops[i] },
+                         duration,
+                         "swing",
+                         function () {
+                              animating = false;
+                              index = i;
+                              setProgress(index);
+                              setTimeout(() => (wheelCooldown = false), 120);
+                         }
+                    );
+               }
 
-      // Initial layout + snap to first
-      measure();
-      $root.scrollTop(tops[0]);
-      setProgress(0);
+               function nearestIndex(scrollTop) {
+                    let best = 0, bestDist = Infinity;
+                    for (let i = 0; i < tops.length; i++) {
+                         const d = Math.abs(tops[i] - scrollTop);
+                         if (d < bestDist) { bestDist = d; best = i; }
+                    }
+                    return best;
+               }
 
-      // Notch clicks
-      $notches.on("click", function (e) {
-        e.preventDefault();
-        const i = Number($(this).data("i"));
-        scrollToIndex(i);
-      });
+               // Initial layout + snap to first
+               measure();
+               $root.scrollTop(tops[0]);
+               setProgress(0);
 
-      // Wheel/trackpad
-      window.addEventListener("wheel", function (ev) {
-        if (animating || wheelCooldown) { ev.preventDefault(); return; }
-        const dy = ev.deltaY || ev.wheelDeltaY || ev.wheelDelta || 0;
-        if (dy === 0) return;
-        ev.preventDefault();
-        scrollToIndex(index + (dy > 0 ? 1 : -1));
-      }, { passive: false });
 
-      // Keyboard
-      $(window).on("keydown", function (e) {
-        if (animating) return;
-        const nextKeys = ["ArrowDown", "PageDown", " "];
-        const prevKeys = ["ArrowUp", "PageUp"];
-        if (nextKeys.includes(e.key)) {
-          e.preventDefault();
-          scrollToIndex(index + 1);
-        } else if (prevKeys.includes(e.key)) {
-          e.preventDefault();
-          scrollToIndex(index - 1);
-        } else if (e.key === "Home") {
-          e.preventDefault();
-          scrollToIndex(0);
-        } else if (e.key === "End") {
-          e.preventDefault();
-          scrollToIndex($sections.length - 1);
-        }
-      });
+               // Notch + label clicks (delegate)
+               $("#nav-rail").on("click", ".nav-item, .nav-item .notch, .nav-item .label", function (e) {
+                    e.preventDefault();
+                    const i = Number($(this).closest(".nav-item").data("i"));
+                    scrollToIndex(i);
+               });
 
-      // Touch (swipe)
-      let touchStartY = null;
-      window.addEventListener("touchstart", (e) => {
-        if (animating) return;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
+               // Wheel/trackpad
+               window.addEventListener("wheel", function (ev) {
+                    if (animating || wheelCooldown) { ev.preventDefault(); return; }
+                    const dy = ev.deltaY || ev.wheelDeltaY || ev.wheelDelta || 0;
+                    if (dy === 0) return;
+                    ev.preventDefault();
+                    scrollToIndex(index + (dy > 0 ? 1 : -1));
+               }, { passive: false });
 
-      window.addEventListener("touchend", (e) => {
-        if (animating || touchStartY == null) return;
-        const endY = e.changedTouches[0].clientY;
-        const diff = touchStartY - endY;
-        const threshold = 40;
-        if (Math.abs(diff) > threshold) {
-          scrollToIndex(index + (diff > 0 ? 1 : -1));
-        }
-        touchStartY = null;
-      }, { passive: true });
+               // Keyboard
+               $(window).on("keydown", function (e) {
+                    if (animating) return;
+                    const nextKeys = ["ArrowDown", "PageDown", " "];
+                    const prevKeys = ["ArrowUp", "PageUp"];
+                    if (nextKeys.includes(e.key)) {
+                         e.preventDefault();
+                         scrollToIndex(index + 1);
+                    } else if (prevKeys.includes(e.key)) {
+                         e.preventDefault();
+                         scrollToIndex(index - 1);
+                    } else if (e.key === "Home") {
+                         e.preventDefault();
+                         scrollToIndex(0);
+                    } else if (e.key === "End") {
+                         e.preventDefault();
+                         scrollToIndex($sections.length - 1);
+                    }
+               });
 
-      // Sync index/progress if user jumps or after resize
-      let scrollDebounce;
-      $(window).on("scroll", function () {
-        if (animating) return;
-        clearTimeout(scrollDebounce);
-        scrollDebounce = setTimeout(() => {
-          const st = Math.round($win.scrollTop());
-          index = nearestIndex(st);
-          setProgress(index);
-        }, 80);
-      });
+               // Touch (swipe)
+               let touchStartY = null;
+               window.addEventListener("touchstart", (e) => {
+                    if (animating) return;
+                    touchStartY = e.touches[0].clientY;
+               }, { passive: true });
 
-      let resizeDebounce;
-      $(window).on("resize", function () {
-        clearTimeout(resizeDebounce);
-        resizeDebounce = setTimeout(() => {
-          const currentId = $sections.eq(index).attr("id");
-          measure();
-          const i = Math.max(0, $sections.index($("#" + currentId)));
-          $root.stop(true, true).scrollTop(tops[i]);
-          index = i;
-          setProgress(index);
-        }, 100);
-      });
-    });
-  </script>
+               window.addEventListener("touchend", (e) => {
+                    if (animating || touchStartY == null) return;
+                    const endY = e.changedTouches[0].clientY;
+                    const diff = touchStartY - endY;
+                    const threshold = 40;
+                    if (Math.abs(diff) > threshold) {
+                         scrollToIndex(index + (diff > 0 ? 1 : -1));
+                    }
+                    touchStartY = null;
+               }, { passive: true });
+
+               // Sync index/progress if user jumps or after resize
+               let scrollDebounce;
+               $(window).on("scroll", function () {
+                    if (animating) return;
+                    clearTimeout(scrollDebounce);
+                    scrollDebounce = setTimeout(() => {
+                         const st = Math.round($win.scrollTop());
+                         index = nearestIndex(st);
+                         setProgress(index);
+                    }, 80);
+               });
+
+               let resizeDebounce;
+               $(window).on("resize", function () {
+                    clearTimeout(resizeDebounce);
+                    resizeDebounce = setTimeout(() => {
+                         const currentId = $sections.eq(index).attr("id");
+                         measure();
+                         const i = Math.max(0, $sections.index($("#" + currentId)));
+                         $root.stop(true, true).scrollTop(tops[i]);
+                         index = i;
+                         setProgress(index);
+                    }, 100);
+               });
+          });
+     </script>
 </body>
+
 </html>

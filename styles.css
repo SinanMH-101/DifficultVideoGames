@@ -17,10 +17,20 @@
     width: 10px;
     height: 100%;
     margin: 0 auto;
-    background: #ffffff;
-    /* white bar */
+    /* centers the white bar within 220px */
+    background: #fff;
     border-radius: 999px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .08) inset;
+
+}
+
+#nav-rail .nav-item {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* centers item on the white bar */
+    pointer-events: auto;
+    /* clickable */
 }
 
 #nav-rail .rail-fill {
@@ -72,11 +82,48 @@
 
 /* Past (<= current) notches stay red */
 #nav-rail .notch.past {
-  background: #e11d2e;
-  border-color: #e11d2e;
+    background: #e11d2e;
+    border-color: #e11d2e;
 }
 
+#nav-rail .label {
+    position: absolute;
+    left: 36px;
+    top: 0;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font: 500 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    /* <-- fixed color */
+    user-select: none;
+    pointer-events: auto;
+    transition: opacity 180ms ease;
+    /* no color transition */
+    opacity: 0.9;
+    background: transparent;
+}
 
+#nav-rail .nav-item.past .notch,
+#nav-rail .nav-item.past  {
+    background: #e11d2e;
+    border-color: #e11d2e;
+    color: #e11d2e;
+}
+
+#nav-rail .nav-item.past .label {
+    color: #e11d2e;
+}
+
+#nav-rail .nav-item.active .label {
+    color: #ffffff;
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(225, 29, 46, 0.25);
+}
+
+#nav-rail .nav-item.past .label,
+#nav-rail .nav-item.active .label {
+  color: rgba(255,255,255,0.9);   /* lock it */
+}
 /* ===== Left navigation rail ===== */
 
 #intro-overlay {
@@ -206,7 +253,9 @@ body {
 }
 
 /* Distinct backgrounds */
-#section1, #prologue, #epilogue {
+#section1,
+#prologue,
+#epilogue {
     background: #000000;
 }
 
